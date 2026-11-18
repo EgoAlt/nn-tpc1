@@ -13,7 +13,7 @@ Code for Homework 1 of Nanotechnologies and Nanoelectronics at IST, 2026/27: "Su
     - raised: 1000 ml/min/kg (vessels open fully due to the heated skin, source: Gowrishankar)
 - the shortest safe build time for the full skin, at two lower heat fractions
 
-It also draws the report's plot, `figures/budget-plot.pdf`. The plot shows the peak temperature of the new tissue against the time to regrow. A red line shows the CEM43 safe limit. Panel (a) shows the full range on log axes, and panel (b) shows a close-up where the curves cross the line. Each dot marks the shortest safe build time for one depth. The curves and dots use the resting blood flow and the full heat fraction (η = 1). The other flows and heat fractions appear only in the printed output.
+It also draws the report's plot, `figures/budget-plot.pdf`. The plot shows the peak temperature of the new tissue against the time to regrow. A red line shows the CEM43 safe limit. Panel (a) shows the full range on log axes, and panel (b) shows a close-up where the curves cross the line. Each dot marks the shortest safe build time for one depth, at the peak temperature of that build, and a box in panel (b) lists both values. The curves and dots use the resting blood flow and the full heat fraction (η = 1). The other flows and heat fractions appear only in the printed output.
 
 The model uses three wound depths, each from a source:
 

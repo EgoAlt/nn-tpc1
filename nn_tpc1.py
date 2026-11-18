@@ -249,13 +249,16 @@ def draw_plot(h, path):
     safe = [safe_line(t) for t in times]
     with plt.rc_context({"font.size": 10}): # two square panels across the full page width
         fig, (ax, zoom) = plt.subplots(1, 2, figsize=(7.0, 4.0))
+        notes = [] # lines of the close-up's value box
         for depth, style, removed in WOUNDS:
             slab = make_slab(depth)
             peaks = [regrow(slab, h, t)[0] for t in times]
             t_safe = safe_build_time(slab, h) # the dot: this depth's shortest safe build
+            peak_safe = regrow(slab, h, t_safe)[0] # the peak at that build, just above the line
+            notes.append(f"{depth * 1e3:.2f} mm: {t_safe / 3600:.1f} h, {peak_safe:.1f} °C")
             for axes in (ax, zoom):
                 axes.plot(times, peaks, style, color="C0")
-                axes.plot(t_safe, safe_line(t_safe), "o", color="C0", markersize=3)
+                axes.plot(t_safe, peak_safe, "o", color="C0", markersize=3)
             ax.plot([], [], style, color="C0", label=f"{depth * 1e3:.2f} mm: {removed}")
         for axes in (ax, zoom):
             axes.plot(times, safe, color="C3", linewidth=1)
@@ -280,6 +283,9 @@ def draw_plot(h, path):
         zoom.minorticks_off()
         zoom.set_xlabel("time to regrow")
         zoom.set_title("(b) close-up of the crossings")
+        zoom.text(0.96, 0.96, "shortest safe build\n" + "\n".join(notes), transform=zoom.transAxes,
+                  ha="right", va="top", fontsize=8,
+                  bbox=dict(boxstyle="round", facecolor="white", edgecolor="0.7"))
 
         for axes in (ax, zoom):
             axes.set_box_aspect(1) # each panel a full square
